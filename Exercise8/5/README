@@ -1,0 +1,6 @@
+# Exercise 8: Basic Numerics
+
+## Assignment 5: Git
+
+This is a programm that is going to show you a hello world and bye world. 
+In order to do that the programm has a class called Greetings that contains the functions that are called in the main.cpp
