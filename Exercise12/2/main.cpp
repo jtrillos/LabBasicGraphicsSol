@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include "tools.h"
 #include <vector>
@@ -73,7 +72,11 @@ void g_fit_energy_gradient_nd(vector<double>& c, vector<double>& g){
 int main()
 {
     SimpleImage& vis = *SimpleImage::getInstance();
+    SimpleImage& vis1 = *SimpleImage::getInstance();
+    SimpleImage& vis2 = *SimpleImage::getInstance();
+    SimpleImage& vis3 = *SimpleImage::getInstance();
     SimpleGraph* plot = SimpleGraph::getInstance();
+
     //2. a)
     sampleG();
     plot->setData( samplesX , samplesY );
@@ -96,12 +99,54 @@ int main()
 
     //2. f)
     vis.create(300,300); //create an image with 300x300 pixels
-    for (int i = 0; i < c.size(); i++){
-        double energy = g_fit_energy(c[i]);
-        vis(c[i][0], c[i][1]) = energy;
+    vector<vector<double>> temp = {};
+    for (int i = 0; i < 300; i++){
+        for (int j = 0; j < 300; j++){
+            temp = {{i/15.0,j/15.0}};
+            double energy = g_fit_energy(temp[0]);
+            vis(i,j) = energy;
+            temp.clear();
+        }
     }
     vis.show(); //close window to continue
 
+    //2. g)
+    vis1.create(300,300); //create an image with 300x300 pixels
+    for (int i = 0; i < 300; i++){
+        for (int j = 0; j < 300; j++){
+            temp = {{i/15.0,j/15.0}};
+            double energy = g_fit_energy(temp[0]);
+            vis1(i,j) = log(energy + 1);
+            temp.clear();
+        }
+    }
+    vis1.show(); //close window to continue
+
+    //2. h)
+    vis2.create(100,100); //create an image with 300x300 pixels
+    for (int i = 0; i < 100; i++){
+        for (int j = 0; j < 100; j++){
+            temp = {{(i/25.0) + 1,(j/10.0) + 5}};
+            double energy = g_fit_energy(temp[0]);
+            vis2(i,j) = log(energy + 1);
+            temp.clear();
+        }
+    }
+    vis2.show(); //close window to continue
+
+    //2. i)
+    vis3.create(100,100); //create an image with 300x300 pixels
+    vector<double> gradDesc;
+    for (int i = 0; i < 100; i++){
+        for (int j = 0; j < 100; j++){
+            temp = {{(i/25.0) + 1,(j/10.0) + 5}};
+            gradDesc = skel_gradient_descent_nd(temp[0], energy_nd);
+            double energy = g_fit_energy(gradDesc);
+            vis3(i,j) = log(energy + 1);
+            temp.clear();
+        }
+    }
+    vis3.show(); //close window to continue
 
     return 0;
 }
