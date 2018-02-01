@@ -8,7 +8,7 @@
 using namespace std;
 
 vector<double> gradient_descent_nd_with_steps( const vector<double>& x0s, double (*energy_nd)( const vector<double>& x, vector<double>& grad ), double maxStepSize = -1, int steps = -1, void (*progress)( const vector<double>& x, const vector<double>& grad ) = NULL ) {
-	double stepsize = 1e-4;
+    double stepsize = 1000;
 	vector<double> xs( x0s );
 	
 	double stepRest = maxStepSize;
@@ -63,7 +63,7 @@ vector<double> gradient_descent_nd_with_steps( const vector<double>& x0s, double
 
 			stepRest -= curStepSize;
 			if( stepRest <= 0 ) {
-				if( progress ) {
+                if( progress && steps % 10 == 0 ) {
 					progress( xs, grad );
 				}
 				if( steps > 0 ) {
