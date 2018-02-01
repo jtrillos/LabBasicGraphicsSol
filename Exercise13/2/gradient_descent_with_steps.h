@@ -73,7 +73,7 @@ vector<double> gradient_descent_nd_with_steps( const vector<double>& x0s, double
 			}
 
 		} else {
-			stepsize = stepsize / 2.0;
+            stepsize = stepsize / 1.1;
 		}
 
 	}
