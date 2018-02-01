@@ -103,7 +103,6 @@ double energySmoothnessIsotropic(const vector<double>& img, vector<double> & gra
         }
     }
 
-    //this is not working. I do not know why if i comment this part then it works but grad = 0. :s
     for(int i = 0; i < width; i++){
         for(int j = 0; j < height; j++){
             double x1 = queryPixel(img, i, j);
