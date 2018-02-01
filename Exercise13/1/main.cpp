@@ -1,4 +1,3 @@
-
 #include <iostream>
 
 #include "SimpleImage.h"
@@ -140,9 +139,10 @@ void assignment_isotropic() {
 int main()
 {
     assignment_isotropic();
+    grad.resize(width*height);
     energySmoothnessIsotropic(d, grad);
     progress(d, grad);
-    vector<double> sol = gradient_descent_nd_with_steps(d, energySmoothnessIsotropic, -1, 10, progress);
+    vector<double> sol = gradient_descent_nd_with_steps(d, energySmoothnessIsotropic, -1, 100, progress);
     outputImage(sol);
     return 0;
 }
